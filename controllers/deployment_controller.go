@@ -21,12 +21,8 @@ import (
 	"fmt"
 
 	"github.com/go-logr/logr"
-	"strings"
 
-	"github.com/google/go-containerregistry/pkg/crane"
-	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/v1/daemon"
-	//"github.com/imharshita/image-controller/pkg/images/"
+	"github.com/imharshita/image-controller/pkg/images"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -37,43 +33,43 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/source"
 )
 
-var privateRegistry string = "harshitadocker"
+// var privateRegistry string = "harshitadocker"
 
-func rename(name string) string {
-	image := strings.Split(name, ":")
-	img, version := image[0], image[1]
-	newName := privateRegistry + "/" + img + ":" + version
-	return newName
-}
+// func rename(name string) string {
+// 	image := strings.Split(name, ":")
+// 	img, version := image[0], image[1]
+// 	newName := privateRegistry + "/" + img + ":" + version
+// 	return newName
+// }
 
-func retag(imgName string) (name.Tag, error) {
-	tag, err := name.NewTag(imgName)
-	if err != nil {
-		return name.Tag{}, err
-	}
-	return tag, nil
-}
+// func retag(imgName string) (name.Tag, error) {
+// 	tag, err := name.NewTag(imgName)
+// 	if err != nil {
+// 		return name.Tag{}, err
+// 	}
+// 	return tag, nil
+// }
 
-func Process(imgName string) (string, error) {
-	img, err := crane.Pull(imgName)
-	if err != nil {
-		return "", err
-	}
-	newName := rename(imgName)
-	tag, err := retag(newName)
-	if err != nil {
-		return "", err
-	}
+// func Process(imgName string) (string, error) {
+// 	img, err := crane.Pull(imgName)
+// 	if err != nil {
+// 		return "", err
+// 	}
+// 	newName := rename(imgName)
+// 	tag, err := retag(newName)
+// 	if err != nil {
+// 		return "", err
+// 	}
 
-	_, err = daemon.Write(tag, img)
-	if err != nil {
-		return "", err
-	}
-	if err := crane.Push(img, tag.String()); err != nil {
-		return "", err
-	}
-	return newName, nil
-}
+// 	_, err = daemon.Write(tag, img)
+// 	if err != nil {
+// 		return "", err
+// 	}
+// 	if err := crane.Push(img, tag.String()); err != nil {
+// 		return "", err
+// 	}
+// 	return newName, nil
+// }
 
 // DeploymentReconciler reconciles a Deployment object
 type DeploymentReconciler struct {
@@ -100,11 +96,8 @@ func (r *DeploymentReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 		containers := deployments.Spec.Template.Spec.Containers
 		for i, c := range containers {
 			fmt.Println(c.Image)
-			//harshita/nginx:1.14.2
-			//string.Prexix()
-			//backupregistry/nginx:1.14.2
 			if c.Image == "nginx:1.14.2" {
-				img, err := Process(c.Image)
+				img, err := images.Process(c.Image)
 				if err != nil {
 					return ctrl.Result{}, err
 				}
