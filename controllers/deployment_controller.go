@@ -19,9 +19,10 @@ package controllers
 import (
 	"context"
 	"fmt"
-
 	"github.com/go-logr/logr"
-
+	// "github.com/google/go-containerregistry/pkg/authn"
+	// "github.com/google/go-containerregistry/pkg/crane"
+	// "github.com/google/go-containerregistry/pkg/name"
 	"github.com/imharshita/image-controller/pkg/images"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -31,9 +32,10 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 	"sigs.k8s.io/controller-runtime/pkg/source"
+	"strings"
 )
 
-// var privateRegistry string = "harshitadocker"
+// var privateRegistry string = "backupregistry"
 
 // func rename(name string) string {
 // 	image := strings.Split(name, ":")
@@ -51,7 +53,13 @@ import (
 // }
 
 // func Process(imgName string) (string, error) {
-// 	img, err := crane.Pull(imgName)
+// 	auth := authn.AuthConfig{
+// 		Username: "backupregistry",
+// 		Password: "mydockerimages",
+// 	}
+// 	authenticator := authn.FromConfig(auth)
+// 	opt := crane.WithAuth(authenticator)
+// 	img, err := crane.Pull(imgName, opt)
 // 	if err != nil {
 // 		return "", err
 // 	}
@@ -61,11 +69,7 @@ import (
 // 		return "", err
 // 	}
 
-// 	_, err = daemon.Write(tag, img)
-// 	if err != nil {
-// 		return "", err
-// 	}
-// 	if err := crane.Push(img, tag.String()); err != nil {
+// 	if err := crane.Push(img, tag.String(), opt); err != nil {
 // 		return "", err
 // 	}
 // 	return newName, nil
@@ -96,7 +100,7 @@ func (r *DeploymentReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 		containers := deployments.Spec.Template.Spec.Containers
 		for i, c := range containers {
 			fmt.Println(c.Image)
-			if c.Image == "nginx:1.14.2" {
+			if !strings.HasPrefix(c.Image, "harshitadocker") {
 				img, err := images.Process(c.Image)
 				if err != nil {
 					return ctrl.Result{}, err
