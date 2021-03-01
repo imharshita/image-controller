@@ -34,10 +34,11 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/source"
 )
 
+var ControllerNs = os.Getenv("CONTROLLER_NAMESPACE")
+
 const (
 	// KubeNs Namespace to exclude in Reconiler
 	KubeNs       = "kube-system"
-	ControllerNs = "system"
 )
 
 // DeploymentReconciler reconciles a Deployment object
