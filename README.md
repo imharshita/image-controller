@@ -34,6 +34,8 @@ $ kubectl create -f conifg/rbac/role_binding.yaml
 $ kubectl create -f config/controllers/image-clone-controller.yaml
 ```
 ## IMPORTANT
+Set environment variables REPOSITORY name and credentials of the same as USERNAME, PASSWORD
+For `quay.io` based images pass "quay.io/<repo name>" as env
 In order to use controller a secret file named "registry-secret" must be present 
 
 ## Build
