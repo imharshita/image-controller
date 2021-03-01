@@ -23,6 +23,7 @@ is ignored!
 
 Registry secret yaml should be present
 
+## Usage
 Create the role, role binding, and service account to grant resource permissions to the Operator, and Image Clone Operator:
 ```
 $ kubectl create -f conifg/secrets/secret.yaml
@@ -30,6 +31,16 @@ $ kubectl create -f conifg/rbac/service_account.yaml
 $ kubectl create -f conifg/rbac/role.yaml
 $ kubectl create -f conifg/rbac/role_binding.yaml
 $ kubectl create -f config/controllers/image-clone-controller.yaml
+```
+## IMPORTANT
+In order to use controller a secret file named "registry-secret" must be present 
+
+## Build
+In order to build controller:
+
+```
+export  BUNDLE_IMG=<img name>
+make docker-build docker-push IMG=$BUNDLE_IMG
 ```
 ### Goal
 Goal here is to be safe against the risk of public container images disappearing from the registry while
