@@ -20,8 +20,9 @@ registry
 * IMPORTANT: The Deployments and DaemonSets in the kube-system namespace
 is ignored!
 
-
-Registry secret yaml should be present
+## Working 
+Controller watches for Deployments/DaemonSets assuming if images are not from "backupregistry" than they are public. Its important in order to access the images
+Then images are retagged to be pushed to "backupregistry" and ultimately are pushed if already not present there
 
 ## Usage
 Create the role, role binding, and service account to grant resource permissions to the Operator, and Image Clone Operator:
