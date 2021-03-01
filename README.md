@@ -17,9 +17,9 @@ we use them, breaking our deployments.
 * Watch the Kubernetes Deployment and DaemonSet objects
 * Check if any of them provision pods with images that are not from the our registry 
 * If yes, copy the image over to the corresponding repository and tag in our registry 
-` Images are pushed if not already present on Registry`
+  ` Images are pushed if not already present on Registry`
 * Modify the Deployment/DaemonSet to use the image from our registry
-`Deployment/DaemonSets are only updated when healthy` 
+  `Deployment/DaemonSets are only updated when healthy` 
 * IMPORTANT: The Deployments and DaemonSets in the kube-system namespace
 is ignored!
 * Additionaly Deployment/DaemonSets from Controller Namespace are also ignored
