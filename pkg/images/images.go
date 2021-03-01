@@ -61,7 +61,7 @@ func fetchCredentials() (authn.Authenticator, error) {
 	return authenticator, nil
 }
 
-// Process public image to retag and push to private registry
+// Process public image to retag and push to private registry if not present
 func Process(imgName string) (string, error) {
 	ref, err := name.ParseReference(imgName)
 	if err != nil {

@@ -29,7 +29,7 @@ spec:
         - /manager
         args:
         - --leader-elect
-        image: backupregistry/image-operator:v003
+        image: backupregistry/image-operator:v005
         name: manager
         env:
         - name: REPOSITORY

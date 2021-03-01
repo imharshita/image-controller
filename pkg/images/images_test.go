@@ -6,6 +6,7 @@ import (
 	"github.com/imharshita/image-controller/pkg/images"
 )
 
+// Inorder to test images package you must provide REPOSITORY, USERNAME, PASSWORD env variables 
 func TestProcess(t *testing.T) {
 	result1, err := images.Process("busybox")
 	if result1 != "backupregistry/busybox" {
