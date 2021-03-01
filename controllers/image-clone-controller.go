@@ -36,7 +36,7 @@ import (
 
 const (
 	// KubeNs Namespace to exclude in Reconiler
-	KubeNs = "kube-system"
+	KubeNs       = "kube-system"
 	ControllerNs = "system"
 )
 
@@ -58,7 +58,7 @@ func isImagePresent(image string) bool {
 	Registry := os.Getenv("REPOSITORY")
 	if len(Registry) == 0 {
 		return false
-	} else if !strings.HasPrefix(image, Registry) {
+	} else if !strings.HasPrefix(image, Registry){
 		return true
 	}
 	return false
@@ -82,7 +82,7 @@ var (
 // Reconcile recociles DaemonSet to uodate the image
 func (r *DaemonSetReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	reqNamespace := req.NamespacedName.Namespace
-	if reqNamespace != KubeNs && reqNamespace != ControllerNs{
+	if reqNamespace != KubeNs && reqNamespace != ControllerNs {
 		r.Log.WithValues("daemonset", req.NamespacedName)
 		daemonsets := &appsv1.DaemonSet{}
 		err := r.Get(context.TODO(), req.NamespacedName, daemonsets)
@@ -132,7 +132,7 @@ func isDeploymentReady(deployments *appsv1.Deployment) bool {
 // Reconcile reconciles Deployment to update the image
 func (r *DeploymentReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	reqNamespace := req.NamespacedName.Namespace
-	if reqNamespace != KubeNs && reqNamespace != ControllerNs{
+	if reqNamespace != KubeNs && reqNamespace != ControllerNs {
 		r.Log.WithValues("deployment", req.NamespacedName)
 		deployments := &appsv1.Deployment{}
 		err := r.Get(context.TODO(), req.NamespacedName, deployments)

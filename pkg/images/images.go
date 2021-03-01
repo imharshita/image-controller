@@ -15,11 +15,7 @@ var repository string = os.Getenv("REPOSITORY")
 func rename(name string) (string, string, string) {
 	var registry, img, tag, newName string
 	list := strings.Split(name, "/")
-	if len(list) == 2 {
-		img = list[1]
-	} else {
-		img = list[0]
-	}
+	img = list[len(list)-1]
 	if strings.Contains(img, ":") {
 		list := strings.Split(img, ":")
 		registry = list[0]
