@@ -35,7 +35,7 @@ $ kubectl create -f conifg/secrets/secret.yaml // create you own secret.yaml
 $ kubectl create -f conifg/rbac/service_account.yaml
 $ kubectl create -f conifg/rbac/role.yaml
 $ kubectl create -f conifg/rbac/role_binding.yaml
-$ kubectl create -f config/controllers/image-clone-controller.yaml
+$ kubectl create -f config/manager/manager.yaml
 ```
 ## IMPORTANT
 For `quay.io` based images set "quay.io/<repo name>" as env variable `REPOSITORY`
