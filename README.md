@@ -31,10 +31,10 @@ Also, if you are changing controller namespace then update `CONTROLLER_NAMESPACE
 
 Create the role, role binding, and service account to grant resource permissions to the Image Clone Operator:
 ```
-$ kubectl create -f conifg/secrets/secret.yaml // create you own secret.yaml
-$ kubectl create -f conifg/rbac/service_account.yaml
-$ kubectl create -f conifg/rbac/role.yaml
-$ kubectl create -f conifg/rbac/role_binding.yaml
+$ kubectl create -f config/secrets/secret.yaml // create you own secret.yaml
+$ kubectl create -f config/rbac/service_account.yaml
+$ kubectl create -f config/rbac/role.yaml
+$ kubectl create -f config/rbac/role_binding.yaml
 $ kubectl create -f config/manager/manager.yaml
 ```
 ## IMPORTANT
