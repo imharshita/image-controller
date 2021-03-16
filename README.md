@@ -26,12 +26,13 @@ is ignored!
 
 
 ## Usage
-Create a secret to provide credentials of you registry repository and update config/manager/manager.yaml with the Repository name (env variable `REPOSITORY`) and respective secret name `registry-secret` , credentials `registry-username and registry-passowrd`.
+Create a secret of type `kubernetes.io/basic-auth` with keys `username` and `password` to provide credentials of you registry repository and update config/manager/manager.yaml with the Repository name (env variable `REPOSITORY`) and respective secret name `registry-secret`.
+
 Also, if you are changing controller namespace then update `CONTROLLER_NAMESPACE` env in config/manager/manager.yaml
 
 Create the role, role binding, and service account to grant resource permissions to the Image Clone Operator:
 ```
-$ kubectl create -f config/secrets/secret.yaml // create you own secret.yaml
+$ kubectl create -f config/secrets/secret.yaml // create you own secret.yaml of type `kubernetes.io/basic-auth`
 $ kubectl create -f config/rbac/service_account.yaml
 $ kubectl create -f config/rbac/role.yaml
 $ kubectl create -f config/rbac/role_binding.yaml
