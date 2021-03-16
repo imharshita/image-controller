@@ -41,12 +41,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: registry-secret
-              key: registry-username 
+              key: username 
         - name: PASSWORD
           valueFrom:
             secretKeyRef:
               name: registry-secret
-              key: registry-passowrd
+              key: password
         securityContext:
           allowPrivilegeEscalation: false
         livenessProbe:
